@@ -16,6 +16,12 @@ import java.util.TreeMap;
 public class Tool {
 
 
+    public static String convertFirstAlpha(String s){
+        String r = getStringFirstAlpha(s);
+        if(!r.matches("[A-Z]")) r = "#";
+        return r;
+    }
+
     public static String getStringFirstAlpha(String s){
         if(TextUtils.isEmpty(s) || s.trim().length() == 0) return "";
         return getCharFirstAlpha(s.trim().toCharArray()[0]);
