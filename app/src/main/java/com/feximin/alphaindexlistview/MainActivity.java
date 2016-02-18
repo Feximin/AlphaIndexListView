@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView mListView;
     private TextView mTxtAlpha;
-    private AdapterAlphaIndex mAdapter;
+    private BaseAlphaIndexAdapter<Entity> mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         txt.setTextSize(30);
         txt.setText("Header");
 //        this.mListView.addHeaderView(txt);
-        this.mAdapter = new AdapterAlphaIndex(this);
+        this.mAdapter = new AdapterTest(this);
         this.mListView.setAdapter(mAdapter);
         this.mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
                 if(height == 0) return;
                 View child = view.getChildAt(0);
                 if(child == null) return;
-                String s = mAdapter.getItem(firstVisibleItem);
-
-                String curAlpha = Tool.convertFirstAlpha(s);
-                String nextAlpha = Tool.convertFirstAlpha(mAdapter.getItem(firstVisibleItem + 1));
+                Entity cur = mAdapter.getItem(firstVisibleItem);
+                Entity next = mAdapter.getItem(firstVisibleItem + 1);
+                String curAlpha = cur.getAlpha();
+                String nextAlpha = next.getAlpha();
                 int marginTop = 0;
                 int bottom = child.getBottom();
                 if(!curAlpha.equals(nextAlpha)){
@@ -51,49 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 if(params.topMargin != marginTop) {
                     params.topMargin = marginTop;
                     mTxtAlpha.requestLayout();
-                    mTxtAlpha.setText(Tool.convertFirstAlpha(s));
+                    mTxtAlpha.setText(curAlpha);
                 }
             }
         });
     }
-
-
-
-//    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-//                         int totalItemCount) {
-//        int section = indexer.getSectionForPosition(firstVisibleItem);
-//        int nextSecPosition = indexer.getPositionForSection(section + 1);
-//        if (firstVisibleItem != lastFirstVisibleItem) {
-//            MarginLayoutParams params = (MarginLayoutParams) titleLayout.getLayoutParams();
-//            params.topMargin = 0;
-//            titleLayout.setLayoutParams(params);
-//            title.setText(String.valueOf(alphabet.charAt(section)));
-//        }
-//        if (nextSecPosition == firstVisibleItem + 1) {
-//            View childView = view.getChildAt(0);
-//            if (childView != null) {
-//                int titleHeight = titleLayout.getHeight();
-//                int bottom = childView.getBottom();
-//                MarginLayoutParams params = (MarginLayoutParams) titleLayout
-//                        .getLayoutParams();
-//                if (bottom < titleHeight) {
-//                    float pushedDistance = bottom - titleHeight;
-//                    params.topMargin = (int) pushedDistance;
-//                    titleLayout.setLayoutParams(params);
-//                } else {
-//                    if (params.topMargin != 0) {
-//                        params.topMargin = 0;
-//                        titleLayout.setLayoutParams(params);
-//                    }
-//                }
-//            }
-//        }
-//        lastFirstVisibleItem = firstVisibleItem;
-//    }
-//});
-//        }
-
-
-
-
 }
