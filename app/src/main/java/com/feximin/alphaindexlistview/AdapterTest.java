@@ -12,8 +12,8 @@ import java.util.List;
  * Created by Neo on 16/2/18.
  */
 public class AdapterTest extends BaseAlphaIndexAdapter<Entity> {
-    public AdapterTest(Context context) {
-        super(context);
+    public AdapterTest(Context context, TextView topAlpha) {
+        super(context, topAlpha);
         List<Entity> data = new ArrayList<>();
         data.add(new Entity("aao"));
         data.add(new Entity("大"));
@@ -70,6 +70,7 @@ public class AdapterTest extends BaseAlphaIndexAdapter<Entity> {
         data = Tool.sort(data);
         mData.addAll(data);
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
